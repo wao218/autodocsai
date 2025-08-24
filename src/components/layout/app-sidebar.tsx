@@ -35,7 +35,7 @@ export default function AppSideBar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href='/dashbaord/documents'>
+                  <Link href='/dashbaord'>
                     <FileTextIcon />
                     <p className='text-base'>Documents</p>
                   </Link>
