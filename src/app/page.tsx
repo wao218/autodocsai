@@ -1,20 +1,10 @@
-'use client'
-import { supabase } from './../../lib/supabase/client'
 
-export default function LoginPage() {
-  const signInWithGitHub = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        // IMPORTANT: go to the callback, not /dashboard
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-  }
+import { createServerSupabase } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 
-  return ( 
-
-
-
-  )
+export default async function Home() {
+  const supabase = await createServerSupabase()
+  const { data: { user } } = await supabase.auth.getUser()
+  redirect(user ? '/dashboard' : '/login')
 }
+
