@@ -10,6 +10,7 @@ export default function LoginPage() {
       options: {
         // IMPORTANT: go to the callback, not /dashboard
         redirectTo: `${window.location.origin}/auth/callback`,
+        scopes: "read:user repo"
       },
     })
   }
