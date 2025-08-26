@@ -16,17 +16,21 @@ export default function LoginPage() {
 
    return (
     <div className="min-h-svh flex items-center justify-center p-6">
-      <Card className="w-full max-w-sm">
+     <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Welcome to Auto Docs AI!</CardTitle>
-          <CardDescription>Sign in to continue</CardDescription>
+            <CardTitle className="mx-auto !text-center">Welcome to Auto Docs AI!</CardTitle>
+                <CardDescription className="mx-auto !text-center">
+                    Log in to continue
+                </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <Button className="w-full" onClick={signInWithGitHub}>
-            Login with GitHub
-          </Button>
-        </CardContent>
-      </Card>
+
+  <CardContent className="space-y-3">
+    <Button className="w-full" onClick={signInWithGitHub}>
+      Login with GitHub
+    </Button>
+  </CardContent>
+</Card>
+
     </div>
   )
 }
