@@ -7,14 +7,11 @@ export async function createServerSupabase() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: {
-        // Read-only pattern for Server Components
+cookies: {
         getAll() {
-          return store.getAll().map(c => ({ name: c.name, value: c.value }))
+          return store.getAll()
         },
-        setAll() {
-         
-        },
+        // no setAll in Server Components (reads only)
       },
     }
   )
