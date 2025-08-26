@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import {
   Sidebar,
@@ -47,8 +49,10 @@ export default function AppSideBar() {
       </SidebarContent>
       <SidebarFooter>
         <Button variant={'ghost'} className='flex items-center justify-start'>
+          <Link href='/auth/signout'>
           <LogOutIcon />
           <p>Logout</p>
+          </Link>
         </Button>
       </SidebarFooter>
     </Sidebar>

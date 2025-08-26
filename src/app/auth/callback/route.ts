@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@supabase/ssr'
 
-function createServerSupabaseForRoute() {
-  const cookieStore = cookies() // sync in Next 13/14/15
+async function createServerSupabaseForRoute() {
+  const cookieStore = await cookies() 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL('/login?error=no_code', url))
   }
 
-  const supabase = createServerSupabaseForRoute()
+  const supabase = await createServerSupabaseForRoute()
   const { error } = await supabase.auth.exchangeCodeForSession(code)
 
   if (error) {
