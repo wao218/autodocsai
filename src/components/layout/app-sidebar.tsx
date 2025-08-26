@@ -1,5 +1,5 @@
-'use client';
 
+import { createServerSupabase } from "@/lib/supabase/server"
 import { Button } from '@/components/ui/button';
 import {
   Sidebar,
@@ -16,19 +16,26 @@ import { FileTextIcon, LogOutIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function AppSideBar() {
+export default async function AppSideBar() {
+    const supabase = await createServerSupabase()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const m: any = user?.user_metadata ?? {}
+  const displayName = m.user_name ?? m.full_name ?? m.name ?? "User"
+  const avatarSrc =
+    m.avatar_url ?? "https://avatars.githubusercontent.com/u/0?v=4"
   return (
     <Sidebar>
       <SidebarHeader>
         <div className='flex items-center mt-2 ml-2'>
           <Image
-            src='https://avatar.iran.liara.run/public'
-            alt=''
+            src={avatarSrc}
+            alt={displayName}
             width={40}
             height={40}
             className='rounded-full aspect-square object-cover'
           />
-          <p className='text-base font-semibold ml-2'>Wesley Osborne</p>
+          <p className='text-base font-semibold ml-2'>{displayName}</p>
         </div>
       </SidebarHeader>
       <SidebarContent>
