@@ -4,8 +4,11 @@
 import { useState } from 'react';
 import RepositoriesDialog from "@/components/repositories/RepositoriesDialog"
 
+type DocStub = { id: string; title: string } // expand later as you build
+
+
 export default function DashboardPage() {
-  const [data] = useState<any[]>([]);
+  const [data] = useState<DocStub[]>([]);
 
   return (
     <>

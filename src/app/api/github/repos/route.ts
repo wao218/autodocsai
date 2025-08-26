@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server"
 import { createServerSupabase } from "@/lib/supabase/server"
 
+type GitHubRepo = {
+  id: number
+  name: string
+  full_name: string
+  private: boolean
+  html_url: string
+  description: string | null
+}
+
 export async function GET(req: Request) {
   const supabase = await createServerSupabase()
   const {
@@ -29,7 +38,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: msg || "GitHub fetch failed" }, { status: res.status })
   }
 
-  const repos = (await res.json()) as any[]
+  const repos = (await res.json()) as GitHubRepo[]
   const simplified = repos.map(r => ({
     id: r.id,
     name: r.name,

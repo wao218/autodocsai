@@ -16,14 +16,23 @@ import { FileTextIcon, LogOutIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+type GithubUserMetadata = {
+  avatar_url?: string
+  user_name?: string
+  full_name?: string
+  name?: string
+  preferred_username?: string
+  picture?: string
+}
+
 export default async function AppSideBar() {
     const supabase = await createServerSupabase()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const m: any = user?.user_metadata ?? {}
-  const displayName = m.user_name ?? m.full_name ?? m.name ?? "User"
+  const meta = (user?.user_metadata ?? {}) as GithubUserMetadata
+  const displayName = meta.user_name ?? meta.full_name ?? meta.name ?? "User"
   const avatarSrc =
-    m.avatar_url ?? "https://avatars.githubusercontent.com/u/0?v=4"
+    meta.avatar_url ?? "https://avatars.githubusercontent.com/u/0?v=4"
   return (
     <Sidebar>
       <SidebarHeader>
