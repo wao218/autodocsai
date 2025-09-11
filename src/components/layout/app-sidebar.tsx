@@ -25,14 +25,15 @@ type GithubUserMetadata = {
   picture?: string
 }
 
+
+
 export default async function AppSideBar() {
     const supabase = await createServerSupabase()
-  const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user } } = await supabase.auth.getUser()
 
-  const meta = (user?.user_metadata ?? {}) as GithubUserMetadata
-  const displayName = meta.user_name ?? meta.full_name ?? meta.name ?? "User"
-  const avatarSrc =
-    meta.avatar_url ?? "https://avatars.githubusercontent.com/u/0?v=4"
+    const metaData = (user?.user_metadata ?? {}) as GithubUserMetadata
+    const displayName = metaData.user_name ?? metaData.full_name ?? metaData.name ?? "User"
+    const avatarSrc = metaData.avatar_url ?? "https://avatars.githubusercontent.com/u/0?v=4"
   return (
     <Sidebar>
       <SidebarHeader>

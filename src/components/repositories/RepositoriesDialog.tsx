@@ -16,25 +16,34 @@ export default function RepositoriesDialog() {
   const [query, setQuery] = React.useState("")
   const [selected, setSelected] = React.useState<Repo | null>(null)
 
-  // fetch when opening
+  // fetchs repos when dialog is opened. Covers error handling and loading state.
   React.useEffect(() => {
     if (!open) return
     setLoading(true)
     setError(null)
     fetch("/api/github/repos")
-      .then(async (r) => {
-        if (!r.ok) throw new Error((await r.json()).error || "Failed to load repos")
-        return r.json()
-      })
+      .then(async (res) => {  
+        if (res.status === 401) {
+      // server already signed the user out — send them to login
+      window.location.href = "/login"
+      return Promise.reject(new Error("Signed out"))
+        }
+       if (!res.ok) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(body.error || "Failed to load repos")
+    }
+    return res.json()
+    }
+  )
       .then((data) => setRepos(data.repos || []))
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
   }, [open])
 
   const filtered = React.useMemo(() => {
-    const q = query.toLowerCase()
-    if (!q) return repos
-    return repos.filter(r => (r.name + " " + (r.description || "")).toLowerCase().includes(q))
+    const lowerCasedQuery = query.toLowerCase()
+    if (!lowerCasedQuery) return repos
+    return repos.filter(repo => (repo.name + " " + (repo.description || "")).toLowerCase().includes(lowerCasedQuery))
   }, [repos, query])
 
   const onGenerate = () => {

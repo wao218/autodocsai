@@ -1,6 +1,6 @@
 'use client';
 
-// import { Button } from '@/components/ui/button';
+
 import { useState } from 'react';
 import RepositoriesDialog from "@/components/repositories/RepositoriesDialog"
 
@@ -18,9 +18,7 @@ export default function DashboardPage() {
             No documents created
           </h2>
           <RepositoriesDialog />
-          {/* <Button className='hover:cursor-pointer' size={'lg'}>
-            Create New Document
-          </Button> */}
+          
         </div>
       ) : (
         'Main Content'
