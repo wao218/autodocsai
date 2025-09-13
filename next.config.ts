@@ -5,9 +5,13 @@ const nextConfig: NextConfig = {
 };
 
 module.exports = {
-  images: {
-    remotePatterns: [new URL('https://avatar.iran.liara.run/*')],
+  
+    images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+    ],
   },
+  
 };
 
 export default nextConfig;

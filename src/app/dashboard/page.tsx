@@ -1,10 +1,14 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+
 import { useState } from 'react';
+import RepositoriesDialog from "@/components/repositories/RepositoriesDialog"
+
+type DocStub = { id: string; title: string } // expand later as you build
+
 
 export default function DashboardPage() {
-  const [data, setData] = useState([]);
+  const [data] = useState<DocStub[]>([]);
 
   return (
     <>
@@ -13,9 +17,8 @@ export default function DashboardPage() {
           <h2 className='text-xl font-semibold text-neutral-600 mb-4'>
             No documents created
           </h2>
-          <Button className='hover:cursor-pointer' size={'lg'}>
-            Create New Document
-          </Button>
+          <RepositoriesDialog />
+          
         </div>
       ) : (
         'Main Content'
